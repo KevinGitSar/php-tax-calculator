@@ -1,5 +1,5 @@
 <?php include 'includes/header.php' ?>
-  <h1 class="text-center">Cart Calculator</h1>
+  <!-- <h1 class="text-center">Cart Calculator</h1> -->
 
   <table class="mx-auto">
       <tr>
