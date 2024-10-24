@@ -1,0 +1,29 @@
+/* style.css */
+
+/* Wrapper for the input and suffix */
+.discount-input-wrapper, .qty-input-wrapper, .price-input-wrapper {
+    position: relative;
+    display: inline-block; /* Ensure the wrapper takes the size of the input */
+    
+  }
+  
+/* Position the '%' symbol */
+.discount-input-wrapper .suffix {
+    position: absolute;
+    right: 12px; /* Position it next to the input */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent interaction with the suffix */
+    color: black; /* Customize this color as needed */
+  }
+
+.qty-input-wrapper .prefix, .price-input-wrapper .prefix {
+    position: absolute;
+    left: 5px; /* Position it next to the input */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent interaction with the suffix */
+    color: black; /* Customize this color as needed */
+  }
+  
+  
