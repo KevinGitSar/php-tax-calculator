@@ -17,7 +17,6 @@
     // AJAX form submission
     $('#cartForm').on('submit', function(event) {
         event.preventDefault(); // Prevent page reload
-        console.log("FORM SUBMISSION PREVENTED");
 
         // Collect form data
         const formData = {
@@ -33,15 +32,17 @@
             type: 'POST',
             data: formData,
             dataType: 'json', // Expect JSON response
-            success: function(cartArray) {
-                console.log('Cart Array:', cartArray); // Check structure in console
+            success: function(response) {
                 $('#cartList').empty(); // Clear existing list
 
-                cartArray.forEach(function(item) {
+                response.cartArray.forEach(function(item) {
                     $('#cartList').append(
                         `<li>${item.productName} - $${parseFloat(item.productPrice).toFixed(2)} x ${item.productQuantity} ${item.productDiscount}% off</li>`
                     );
                 });
+
+                // Update total cost
+                $('#totalCost').text(response.cartTotal);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error:', textStatus, errorThrown);

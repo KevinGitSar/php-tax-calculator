@@ -3,6 +3,7 @@
   include 'includes/header.php';
 
   $cartArray = isset($_SESSION['cartArray']) ? $_SESSION['cartArray'] : [];
+  $cartTotal = isset($_SESSION['cartTotal']) ? $_SESSION['cartTotal'] : number_format(0,2);
 ?>
 
   <form id="cartForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" role="form">
@@ -22,7 +23,7 @@
           <td>
             <div class="price-input-wrapper">
               <span class="prefix">$</span>
-              <input type="number" name="prodPrice" id="prodPrice" class="price-input border-2 border-black rounded invalid:border-red-500 w-16 text-center pl-1" min="0" value="0.00"  />
+              <input type="number" name="prodPrice" id="prodPrice" class="price-input border-2 border-black rounded invalid:border-red-500 w-16 text-center pl-1" min="0" value="0.00" step="0.01"  />
             </div>
           </td>
           <td>
@@ -66,7 +67,7 @@
   <!-- Tax and total cost section -->
   <div id="totalSection" class="w-1/4 mx-auto">
       <p>Tax (5%): $<span id="taxAmount">0.00</span></p>
-      <p>Total Cost: $<span id="totalCost">0.00</span></p>
+      <p>Total Cost: $<span id="totalCost"><?php echo $cartTotal; ?></span></p>
   </div>
 
-<?php include 'includes/footer.php' ?>
+<?php include 'includes/footer.php'; ?>
