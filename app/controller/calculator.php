@@ -1,14 +1,12 @@
 <?php
 session_start();
-include 'product_class.php';
+
+include '../model/product_class.php';
 
 // Initialize or retrieve cart array from session
 if (!isset($_SESSION['cartArray'])) {
     $_SESSION['cartArray'] = [];
-} else {
-    $cartArray = $_SESSION['cartArray']; // Get the cart from session
 }
-
 
 $prodItem = isset($_POST['prodItem']) ? $_POST['prodItem'] : '';
 $prodPrice = isset($_POST['prodPrice']) ? floatval($_POST['prodPrice']) : 0.0;
@@ -21,16 +19,13 @@ if (!empty($prodItem)) {
     $newProduct = new Product($prodItem, $prodPrice, $prodQty, $prodDiscount);
     $_SESSION['cartArray'][] = $newProduct->toArray();
 
-    
-    
+    // Calculate total cost
     $total = 0.00;
-    foreach ($_SESSION['cartArray'] as $item):
-      $total += ($item['productPrice'] - ($item['productPrice'] * ($item['productDiscount'] / 100 ))) * $item['productQuantity'];
-    endforeach;
-    
-    $_SESSION['cartTotal'] = number_format($total, 2);
+    foreach ($_SESSION['cartArray'] as $item) {
+        $total += ($item['productPrice'] - ($item['productPrice'] * ($item['productDiscount'] / 100))) * $item['productQuantity'];
+    }
+    $_SESSION['cartTotal'] = round($total, 2);  // Use round() to keep it as a float
 }
-
 // Return the cart array as a JSON response
 header('Content-Type: application/json');
 echo json_encode([

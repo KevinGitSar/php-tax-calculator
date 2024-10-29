@@ -28,11 +28,12 @@
 
         // Send form data to calculator.php via AJAX
         $.ajax({
-            url: 'includes/calculator.php',
+            url: 'controller/calculator.php',
             type: 'POST',
             data: formData,
             dataType: 'json', // Expect JSON response
             success: function(response) {
+              console.log(response);
                 $('#cartList').empty(); // Clear existing list
 
                 response.cartArray.forEach(function(item) {
@@ -44,7 +45,7 @@
                 // Update total cost
                 $('#totalCost').text(response.cartTotal);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown, response) {
                 console.error('Error:', textStatus, errorThrown);
             }
         });

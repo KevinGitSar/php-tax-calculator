@@ -1,12 +1,17 @@
 <?php 
   session_start();
-  include 'includes/header.php';
+  
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+  
+  include 'view/header.php';
 
   $cartArray = isset($_SESSION['cartArray']) ? $_SESSION['cartArray'] : [];
-  $cartTotal = isset($_SESSION['cartTotal']) ? $_SESSION['cartTotal'] : number_format(0,2);
+  $cartTotal = isset($_SESSION['cartTotal']) ? $_SESSION['cartTotal'] : 0.00;
+
 ?>
 
-  <form id="cartForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" role="form">
+  <form id="cartForm" action="" method="POST" role="form">
     <table class="mx-auto">
         <tr>
             <th><label for="prodItem">Item</label></th>
@@ -70,4 +75,4 @@
       <p>Total Cost: $<span id="totalCost"><?php echo $cartTotal; ?></span></p>
   </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'view/footer.php'; ?>
