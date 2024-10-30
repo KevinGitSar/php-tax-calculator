@@ -12,8 +12,21 @@
       $(this).val(isNaN(value) || value < 1 ? '1' : value);  // If value is invalid or less than 1, default to 1
     });
 
+    // Function to update tax and total amount
+    function updateTaxAmount() {
+      const subtotal = parseFloat($('#subtotal').text()) || 0;
+      const taxRate = parseFloat($('#tax').val()) || 0;
 
+      // Calculate tax amount
+      const taxAmount = (subtotal * (taxRate / 100)).toFixed(2);
+      $('#taxAmount').text(taxAmount);
+    }
 
+    // Update tax amount when tax input changes
+    $('#tax').on('input', updateTaxAmount);
+
+    // Trigger updateTaxAmount once on page load
+    updateTaxAmount();
     // AJAX form submission
     $('#cartForm').on('submit', function(event) {
         event.preventDefault(); // Prevent page reload
@@ -43,7 +56,8 @@
                 });
 
                 // Update total cost
-                $('#totalCost').text(response.cartTotal);
+                $('#subtotal').text(response.cartSubtotal);
+                updateTaxAmount(); // Call function to update tax amount based on new subtotal
             },
             error: function(jqXHR, textStatus, errorThrown, response) {
                 console.error('Error:', textStatus, errorThrown);

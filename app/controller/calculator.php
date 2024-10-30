@@ -24,11 +24,11 @@ if (!empty($prodItem)) {
     foreach ($_SESSION['cartArray'] as $item) {
         $total += ($item['productPrice'] - ($item['productPrice'] * ($item['productDiscount'] / 100))) * $item['productQuantity'];
     }
-    $_SESSION['cartTotal'] = round($total, 2);  // Use round() to keep it as a float
+    $_SESSION['cartSubtotal'] = round($total, 2);  // Use round() to keep it as a float
 }
 // Return the cart array as a JSON response
 header('Content-Type: application/json');
 echo json_encode([
     'cartArray' => $_SESSION['cartArray'],
-    'cartTotal' => $_SESSION['cartTotal']
+    'cartSubtotal' => $_SESSION['cartSubtotal']
 ]);

@@ -1,16 +1,14 @@
 <?php 
   session_start();
   
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
-  
   include 'view/header.php';
 
   $cartArray = isset($_SESSION['cartArray']) ? $_SESSION['cartArray'] : [];
-  $cartTotal = isset($_SESSION['cartTotal']) ? $_SESSION['cartTotal'] : 0.00;
+  $cartSubtotal = isset($_SESSION['cartSubtotal']) ? $_SESSION['cartSubtotal'] : 0.00;
+  // $taxAmount = 
+  // $cartTotal = 0.00;
 
 ?>
-
   <form id="cartForm" action="" method="POST" role="form">
     <table class="mx-auto">
         <tr>
@@ -28,7 +26,7 @@
           <td>
             <div class="price-input-wrapper">
               <span class="prefix">$</span>
-              <input type="number" name="prodPrice" id="prodPrice" class="price-input border-2 border-black rounded invalid:border-red-500 w-16 text-center pl-1" min="0" value="0.00" step="0.01"  />
+              <input type="number" name="prodPrice" id="prodPrice" class="price-input border-2 border-black rounded invalid:border-red-500 w-16 text-center pl-1" min="0" value="0.00"  />
             </div>
           </td>
           <td>
@@ -71,8 +69,15 @@
 
   <!-- Tax and total cost section -->
   <div id="totalSection" class="w-1/4 mx-auto">
-      <p>Tax (5%): $<span id="taxAmount">0.00</span></p>
-      <p>Total Cost: $<span id="totalCost"><?php echo $cartTotal; ?></span></p>
+      <p>Subtotal: $<span id="subtotal"><?php echo $cartSubtotal; ?></span></p>
+
+      <div class="tax-input-wrapper">
+        <span class="prefix">Tax (</span>
+        <input type="number" name="tax" id="tax" class="tax-input border-2 border-black rounded invalid:border-red-500 w-14 text-center" min="0" value="13" />
+        <span class="suffix">%): $<span id="taxAmount">0.00</span></span>
+      </div>
+
+      <p>Total Cost (after tax): $<span id="total">0.00</span></p>
   </div>
 
 <?php include 'view/footer.php'; ?>
