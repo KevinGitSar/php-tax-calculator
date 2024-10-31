@@ -72,12 +72,12 @@
       <p>Subtotal: $<span id="subtotal"><?php echo $cartSubtotal; ?></span></p>
 
       <div class="tax-input-wrapper">
-        <span class="prefix">Tax (</span>
-        <input type="number" name="tax" id="tax" class="tax-input border-2 border-black rounded invalid:border-red-500 w-14 text-center" min="0" value="13" />
-        <span class="suffix">%): $<span id="taxAmount">0.00</span></span>
+        <span>Tax ( </span>
+        <input type="number" name="tax" id="tax" class="tax-input border-2 border-black rounded invalid:border-red-500 w-12 text-center" min="0" value="13" />
+        <span> %): $</span> <span id="taxAmount">0.00</span>
       </div>
 
-      <p>Total Cost (after tax): $<span id="total">0.00</span></p>
+      <p>Total Cost (after tax): $<span id="finalTotal">0.00</span></p>
   </div>
 
 <?php include 'view/footer.php'; ?>
