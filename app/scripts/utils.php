@@ -19,7 +19,6 @@
 
       // Calculate final total
       const finalTotal = (subtotal + taxAmount).toFixed(2);
-      console.log("Final total is: ", finalTotal);
       $('#finalTotal').text(finalTotal);
     }
 
@@ -62,7 +61,6 @@
             data: formData,
             dataType: 'json', // Expect JSON response
             success: function(response) {
-              console.log(response);
                 $('#cartList').empty(); // Clear existing list
 
                 response.cartArray.forEach(function(item, key) {
@@ -83,7 +81,6 @@
     });
 
     $('#cartList').on('click', '.remove-btn', function() {
-      console.log('Removed-item clicked!');
       const itemKey = $(this).val(); // The index of the item to remove
 
       $.ajax({
