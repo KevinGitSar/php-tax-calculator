@@ -43,14 +43,14 @@
           </td>
           <td>
             <div>
-              <button type="submit" class="border-2 border-black rounded w-10 text-center">Add</button>
+              <button type="submit" class="border-2 border-black rounded px-2 text-center">Add</button>
             </div>
           </td>
         </tr>
     </table>
   </form>
 
-  <form action="clear_cart.php" method="POST">
+  <form action="controller/clear_cart.php" method="POST">
     <button type="submit" class="border-2 border-black rounded w-20 text-center mt-4">
         Clear Cart
     </button>
@@ -59,8 +59,8 @@
   <!-- Cart Item List -->
   <h2 class="text-center">Cart Items</h2>
   <ul id="cartList" class="w-1/4 mx-auto">
-    <?php foreach ($cartArray as $item): ?>
-        <li><?php echo htmlspecialchars($item['productName']) . " - $" . number_format($item['productPrice'], 2) . " x " . $item['productQuantity'] . " " . $item['productDiscount'] . "% off"; ?></li>
+    <?php foreach ($cartArray as $key => $item): ?>
+        <li class="flex justify-between"><p><?php echo htmlspecialchars($item['productName']) . " - $" . number_format($item['productPrice'], 2) . " x " . $item['productQuantity'] . " " . $item['productDiscount'] . "% off"; ?></p><button class="border-2 border-black rounded px-2 text-center remove-btn" value="<?php echo $key ?>">Remove</button></li>
     <?php endforeach; ?>
   </ul>
 

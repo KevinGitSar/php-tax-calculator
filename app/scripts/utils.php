@@ -65,9 +65,9 @@
               console.log(response);
                 $('#cartList').empty(); // Clear existing list
 
-                response.cartArray.forEach(function(item) {
+                response.cartArray.forEach(function(item, key) {
                     $('#cartList').append(
-                        `<li>${item.productName} - $${parseFloat(item.productPrice).toFixed(2)} x ${item.productQuantity} ${item.productDiscount}% off</li>`
+                        `<li class="flex justify-between"><p>${item.productName} - $${parseFloat(item.productPrice).toFixed(2)} x ${item.productQuantity} ${item.productDiscount}% off</p><button class="border-2 border-black rounded px-2 text-center remove-btn" data="${key}">Remove</button></li>`
                     );
                 });
 
@@ -81,6 +81,41 @@
             }
         });
     });
+
+    $('#cartList').on('click', '.remove-btn', function() {
+      console.log('Removed-item clicked!');
+      const itemKey = $(this).val(); // The index of the item to remove
+
+      $.ajax({
+          url: 'controller/remove_item.php',
+          type: 'POST',
+          data: { itemKey: itemKey },
+          dataType: 'json',
+          success: function(response) {
+              $('#cartList').empty(); // Clear the existing cart list
+
+              // Re-populate cart items
+              response.cartArray.forEach(function(item, index) {
+                  $('#cartList').append(
+                      `<li class="flex justify-between">
+                          <p>${item.productName} - $${parseFloat(item.productPrice).toFixed(2)} x ${item.productQuantity} ${item.productDiscount}% off</p>
+                          <button class="border-2 border-black rounded px-2 text-center remove-btn" value="${index}">Remove</button>
+                      </li>`
+                  );
+              });
+
+              // Update the subtotal
+              $('#subtotal').text(response.cartSubtotal);
+              updateTaxAmount(); // Re-calculate new amounts and totals
+              updateFinalTotal();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.error('Error:', textStatus, errorThrown);
+          }
+      });
+    });
+
+
 
 
 
